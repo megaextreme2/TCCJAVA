@@ -13,6 +13,6 @@ public interface AdminRepository extends JpaRepository<Admin,Long> {
     @Query(value = "SELECT * FROM Admin ad WHERE ad.codStatus='1'", nativeQuery = true)
     public List<Admin> listarTodosAdminsAtivos();
 
-    @Query(value = "SELECT * FROM Admin ad WHERE ad.id=?1 AND c.codStatus='1'", nativeQuery = true)
+    @Query(value = "SELECT * FROM Admin ad WHERE ad.id=?1 AND ad.codStatus='1'", nativeQuery = true)
     public Admin listarAdminsPorIdAtivas(Long id);
 }

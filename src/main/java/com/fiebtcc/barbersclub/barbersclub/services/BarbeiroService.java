@@ -3,9 +3,11 @@ package com.fiebtcc.barbersclub.barbersclub.services;
 
 
 import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface BarbeiroService {
     public Barbeiro salvarBarbeiro(Barbeiro barbeiro);
     public List<Barbeiro> listarTodosBarbeiro();

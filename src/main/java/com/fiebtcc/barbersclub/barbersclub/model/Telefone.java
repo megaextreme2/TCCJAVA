@@ -13,8 +13,6 @@ public class Telefone {
     private Long numero;
     @Column(nullable = true, columnDefinition = "INTEGER")
     private Long ddd;
-    @Column
-    private byte[] foto;
     @Column(nullable = false)
     private boolean codStatus;
 

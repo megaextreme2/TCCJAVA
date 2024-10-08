@@ -4,7 +4,6 @@ package com.fiebtcc.barbersclub.barbersclub.services;
 
 import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.exceptions.NotFound;
-import com.fiebtcc.barbersclub.barbersclub.model.Admin;
 import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
 import com.fiebtcc.barbersclub.barbersclub.repository.BarbeiroRepository;
 import jakarta.transaction.Transactional;

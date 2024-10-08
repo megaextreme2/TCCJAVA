@@ -1,6 +1,5 @@
 package com.fiebtcc.barbersclub.barbersclub.repository;
 
-import com.fiebtcc.barbersclub.barbersclub.model.Admin;
 import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
