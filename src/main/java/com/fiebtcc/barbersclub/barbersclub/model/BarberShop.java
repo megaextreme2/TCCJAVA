@@ -9,7 +9,7 @@ public class BarberShop {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto incrementar
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "INTEGER")
     private int qtd_barbeiro;
     @Column(nullable = false, length = 9)
     private String cep;
