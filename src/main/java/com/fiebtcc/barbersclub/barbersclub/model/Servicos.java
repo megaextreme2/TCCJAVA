@@ -50,10 +50,6 @@ public class Servicos {
 
     public void setNome(String nome) {this.nome = nome;}
 
-    public String getTipo_servico() {
-        return tipo;
-    }
-
     public String getTipo() {
         return tipo;
     }
@@ -70,9 +66,6 @@ public class Servicos {
         this.descricao = descricao;
     }
 
-    public void setTipo_servico(String tipo_servico) {
-        this.tipo = tipo_servico;
-    }
 
     public boolean isCodStatus() {
         return false;

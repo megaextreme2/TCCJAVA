@@ -63,6 +63,8 @@ public class AdminServiceImpl implements AdminService{
             }
             Admin adminBd = adminRepository.findById(id).get();
             adminBd.setNome(admin.getNome());
+            adminBd.setSenha(admin.getSenha());
+            adminBd.setRelatorio(admin.getRelatorio());
             return adminRepository.save(adminBd); // save: dupla função - update para objeto existente (quando não tenho objeto, ele salva, e quando tem, ele atualiza)
 
         } catch (Exception ex) {

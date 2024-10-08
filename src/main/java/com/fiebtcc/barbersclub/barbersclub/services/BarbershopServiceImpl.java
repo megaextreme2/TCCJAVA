@@ -54,7 +54,8 @@ public class BarbershopServiceImpl implements BarbeshopService{
         try {
             if (!barberShop.validarBarberShop()) {
                 BarberShop barberShopBD = barberShopRepository.findById(id).get();
-                barberShopBD.setCodStatus(barberShop.isCodStatus());
+                barberShopBD.setNome(barberShop.getNome());
+                barberShopBD.setQtd_barbeiro(barberShop.getQtd_barbeiro());
                 return barberShopRepository.save(barberShopBD);
             } else {
                 throw new BadRequest(barberShop.getMensagemErro());

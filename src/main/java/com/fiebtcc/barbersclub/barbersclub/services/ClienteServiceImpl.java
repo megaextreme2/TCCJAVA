@@ -60,6 +60,7 @@ public class ClienteServiceImpl implements ClienteService{
             }
             Cliente clienteBD = clienteRepository.findById(id).get();
             clienteBD.setNome(cliente.getNome());
+            clienteBD.setSenha(cliente.getSenha());
             return clienteRepository.save(clienteBD); // save: dupla função - update para objeto existente (quando não tenho objeto, ele salva, e quando tem, ele atualiza)
 
         } catch (Exception ex) {

@@ -59,7 +59,9 @@ public class ServicosServiceImpl implements ServicosService{
         try {
             if (!servicos.validarServicos()) {
                 Servicos servicosBD = servicosRepository.findById(id).get();
-                servicosBD.setCodStatus(servicos.isCodStatus());
+                servicosBD.setTipo(servicos.getTipo());
+                servicosBD.setDescricao(servicos.getDescricao());
+                servicosBD.setNome(servicos.getNome());
                 return servicosRepository.save(servicosBD);
             } else {
                 throw new BadRequest(servicos.getMensagemErro());

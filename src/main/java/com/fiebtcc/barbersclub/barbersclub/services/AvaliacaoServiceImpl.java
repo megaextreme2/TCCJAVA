@@ -29,7 +29,8 @@ public class AvaliacaoServiceImpl  implements AvaliacaoService{
         try {
             if (!avaliacao.validarAvaliacao()) {
                 Avaliacao avaliacaoBD = avaliacaoRepository.findById(id).get();
-                avaliacaoBD.setCodStatus(avaliacao.isCodStatus());
+                avaliacaoBD.setMedia(avaliacao.getMedia());
+                avaliacaoBD.setQuantiA(avaliacao.getQuantiA());
                 return avaliacaoRepository.save(avaliacaoBD);
             } else {
                 throw new BadRequest(avaliacao.getMensagemErro());

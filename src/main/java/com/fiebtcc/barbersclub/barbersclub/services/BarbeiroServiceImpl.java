@@ -57,7 +57,7 @@ public class BarbeiroServiceImpl implements BarbeiroService{
         try {
             if (!barbeiro.validarBarbeiro()) {
                 Barbeiro barbeiroBD = barbeiroRepository.findById(id).get();
-                barbeiroBD.setCodStatus(barbeiro.isCodStatus());
+                barbeiroBD.setNome(barbeiro.getNome());
                 return barbeiroRepository.save(barbeiroBD);
             } else {
                 throw new BadRequest(barbeiro.getMensagemErro());

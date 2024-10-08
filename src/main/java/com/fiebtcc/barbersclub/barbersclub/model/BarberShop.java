@@ -9,6 +9,8 @@ public class BarberShop {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto incrementar
     private Long id;
+    @Column(nullable = false)
+    private int qtd_barbeiro;
     @Column(nullable = false, length = 9)
     private String cep;
     @Column(nullable = true, length = 35)
@@ -39,6 +41,14 @@ public class BarberShop {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getQtd_barbeiro() {
+        return qtd_barbeiro;
+    }
+
+    public void setQtd_barbeiro(int qtd_barbeiro) {
+        this.qtd_barbeiro = qtd_barbeiro;
     }
 
     public byte[] getFoto() {

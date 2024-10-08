@@ -13,7 +13,6 @@ public class Admin {
     private String nome;
     @Column(nullable = false, length = 14)
     private String cnpj;
-
     @Column(nullable = false, length = 50)
     private String email;
     @Column(nullable = false, length = 20)
