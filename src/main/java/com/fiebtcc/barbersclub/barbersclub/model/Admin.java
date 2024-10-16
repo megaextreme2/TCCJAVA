@@ -20,7 +20,7 @@ public class Admin {
     @Column(nullable = true, length = 2000)
     private String relatorio;
     @Column(nullable = false)
-    private boolean codStatus;
+    private boolean cod_status;
 
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
@@ -29,7 +29,7 @@ public class Admin {
     @Transient
     @JsonIgnore
     private boolean isValid = true;
-    public Long getId() {
+    public Long getId(){
         return id;
     }
 
@@ -78,11 +78,11 @@ public class Admin {
     }
 
     public boolean isCodStatus() {
-        return codStatus;
+        return cod_status;
     }
 
     public void setCodStatus(boolean codStatus) {
-        this.codStatus = codStatus;
+        this.cod_status = codStatus;
     }
     public String getMensagemErro() {
         return mensagemErro;
