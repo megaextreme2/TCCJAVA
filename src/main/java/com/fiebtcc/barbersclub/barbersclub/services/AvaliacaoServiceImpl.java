@@ -6,10 +6,11 @@ import com.fiebtcc.barbersclub.barbersclub.model.Avaliacao;
 
 import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
 import com.fiebtcc.barbersclub.barbersclub.repository.AvaliacaoRepository;
+import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-
+@Service
 public class AvaliacaoServiceImpl  implements AvaliacaoService{
     private final AvaliacaoRepository avaliacaoRepository;
     public AvaliacaoServiceImpl(AvaliacaoRepository avaliacaoRepository) {

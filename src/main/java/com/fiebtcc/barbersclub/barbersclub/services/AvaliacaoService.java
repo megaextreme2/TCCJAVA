@@ -3,8 +3,6 @@ package com.fiebtcc.barbersclub.barbersclub.services;
 
 
 import com.fiebtcc.barbersclub.barbersclub.model.Avaliacao;
-import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
-import com.fiebtcc.barbersclub.barbersclub.model.Telefone;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

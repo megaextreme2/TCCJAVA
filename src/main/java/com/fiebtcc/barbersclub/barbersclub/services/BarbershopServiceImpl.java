@@ -7,9 +7,10 @@ import com.fiebtcc.barbersclub.barbersclub.model.BarberShop;
 import com.fiebtcc.barbersclub.barbersclub.repository.BarbeiroRepository;
 import com.fiebtcc.barbersclub.barbersclub.repository.BarberShopRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class BarbershopServiceImpl implements BarbeshopService{
     private final BarberShopRepository barberShopRepository;
 

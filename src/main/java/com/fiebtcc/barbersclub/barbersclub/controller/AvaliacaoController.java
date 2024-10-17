@@ -1,9 +1,7 @@
 package com.fiebtcc.barbersclub.barbersclub.controller;
 
 import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
-import com.fiebtcc.barbersclub.barbersclub.model.Admin;
 import com.fiebtcc.barbersclub.barbersclub.model.Avaliacao;
-import com.fiebtcc.barbersclub.barbersclub.services.AdminService;
 import com.fiebtcc.barbersclub.barbersclub.services.AvaliacaoService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
