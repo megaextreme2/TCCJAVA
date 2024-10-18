@@ -29,7 +29,7 @@ public class ServicosController {
     @PostMapping("/servicos")
     @Transactional
     public ResponseEntity<Servicos> salvarServicos(@RequestBody Servicos servicos) {
-        servicos.setCodStatus(true);
+        servicos.setCod_status(true);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/funcionario/servicos").toUriString());
         return ResponseEntity.created(uri).body(servicosService.salvarServicos(servicos));
     }

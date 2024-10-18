@@ -1,9 +1,7 @@
 package com.fiebtcc.barbersclub.barbersclub.controller;
 
 import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
-import com.fiebtcc.barbersclub.barbersclub.model.Admin;
 import com.fiebtcc.barbersclub.barbersclub.model.Cliente;
-import com.fiebtcc.barbersclub.barbersclub.services.AdminService;
 import com.fiebtcc.barbersclub.barbersclub.services.ClienteService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +27,7 @@ public class ClienteController {
     @PostMapping("/cliente")
     @Transactional
     public ResponseEntity<Cliente> salvarCliente(@RequestBody Cliente cliente){
-        cliente.setCodStatus(true);
+        cliente.setCod_status(true);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/funcionario/cliente").toUriString());
         return ResponseEntity.created(uri).body(clienteService.salvarClientes(cliente));
     }

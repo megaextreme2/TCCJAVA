@@ -75,7 +75,7 @@ public class ClienteServiceImpl implements ClienteService{
                 throw new BadRequest(cliente.getMensagemErro());
             }
             Cliente clienteBD = clienteRepository.findById(id).get();
-            clienteBD.setCodStatus(cliente.isCodStatus());
+            clienteBD.setCod_status(cliente.isCod_status());
             return clienteRepository.save(clienteBD);
         }catch (Exception ex){
             throw new NotFound("Telefone com o id " + id + " não encontrado");

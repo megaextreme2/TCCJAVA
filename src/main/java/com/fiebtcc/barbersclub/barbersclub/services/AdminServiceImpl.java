@@ -80,7 +80,7 @@ public class AdminServiceImpl implements AdminService{
                 throw new BadRequest(admin.getMensagemErro());
             }
             Admin adminBD = adminRepository.findById(id).get();
-            adminBD.setCodStatus(admin.isCodStatus());
+            adminBD.setCod_status(admin.isCod_status());
             return adminRepository.save(adminBD);
         }catch (Exception ex){
             throw new NotFound("Admin com o id " + id + " não encontrado");

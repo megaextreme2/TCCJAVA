@@ -4,66 +4,43 @@ import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.model.Admin;
 import com.fiebtcc.barbersclub.barbersclub.services.AdminService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/funcionario")
+@CrossOrigin(origins="*", maxAge = 3600, allowCredentials = "false")
+@RequestMapping("/admin")
 public class AdminController {
 
-    private final AdminService adminService;
+    // criação do objeto de serviço
+    final AdminService adminService;
 
+    // Injeção de Dependência
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
-    @GetMapping("/admin")
-    public ResponseEntity<List<Admin>> listarTodosAdmins(){
-        return ResponseEntity.ok().body(adminService.listarTodasAdmin());
-    }
-    @PostMapping("/admin")
-    @Transactional
-    public ResponseEntity<Admin> salvarAdmin(@RequestBody Admin admin){
-        admin.setCodStatus(true);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/funcionario/admin").toUriString());
-        return ResponseEntity.created(uri).body(adminService.salvarAdmin(admin));
-    }
-    @GetMapping("/admin/{id}")
-    public  ResponseEntity<Admin> listarAdminPorId(@PathVariable(value = "id") String id) {
-        try {
-            return ResponseEntity.ok().body(adminService.listarAdminPorId(Long.parseLong(id)));
-        }catch (NumberFormatException ex){
-            throw new BadRequest("'"+ id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
-    }
-    @DeleteMapping("/admin/{id}")
-    public ResponseEntity<Object> deletarAdmin(@PathVariable(value = "id") String id){
-        try{
-            if(adminService.deletarAdmin(Long.parseLong(id))) {
-                return ResponseEntity.ok().body("Admin com o id " + id + " excluida com sucesso");}
 
-        }catch (NumberFormatException ex){
-            throw new BadRequest("'"+ id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
-
-        return ResponseEntity.ok().body("Não foi possível a exclusão da admin com o id" + id);
-
+    // ROTA POST
+    @PostMapping
+    public ResponseEntity<Object> salvarAdmin(@RequestBody Admin admin){
+        return ResponseEntity.status(HttpStatus.CREATED).body(adminService.salvarAdmin(admin));
     }
-    @PutMapping("/admin/{id}")
-    @Transactional
-    public ResponseEntity<Admin> atualizarAdmin(@RequestBody Admin admin, @PathVariable(value = "id") String id){
 
-        try{
-            return ResponseEntity.ok().body(adminService.atualizarAdmin(admin , Long.parseLong(id)));
-
-        }catch (NumberFormatException ex){
-            throw new BadRequest("'"+ id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
+    // ROTA GET
+    @GetMapping
+    public ResponseEntity<List<Admin>> listarTodasAdmin(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(adminService.listarTodasAdmin());
     }
-    @PutMapping("/deletlogic/admin/{id}")
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Admin> listarAdminPorId(@PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.OK).body(adminService.listarAdminPorId(Long.parseLong(id)));
+    }
+
+    @PutMapping("/delete/{id}")
     @Transactional
     public ResponseEntity<Admin> deletarLogicAdmin(@RequestBody Admin admin, @PathVariable(value = "id") String id){
 
@@ -73,6 +50,17 @@ public class AdminController {
         }catch (NumberFormatException ex){
             throw new BadRequest("'"+ id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarAdmin(@RequestBody Admin admin, @PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(adminService.atualizarAdmin(admin, Long.parseLong(id)));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarAdmin(@PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(adminService.deletarAdmin(Long.parseLong(id)));
     }
 }
 

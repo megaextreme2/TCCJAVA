@@ -79,7 +79,7 @@ public class TelefoneServiceImpl implements TelefoneService{
                 throw new BadRequest(telefone.getMensagemErro());
             }
             Telefone telefoneBd = telefoneRepository.findById(id).get();
-            telefoneBd.setCodStatus(telefone.isCodStatus());
+            telefoneBd.setCod_status(telefone.isCod_status());
             return telefoneRepository.save(telefoneBd);
         }catch (Exception ex){
             throw new NotFound("Telefone com o id " + id + " não encontrado");

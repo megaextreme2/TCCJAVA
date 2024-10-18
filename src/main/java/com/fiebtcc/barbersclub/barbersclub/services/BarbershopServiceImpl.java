@@ -2,11 +2,8 @@ package com.fiebtcc.barbersclub.barbersclub.services;
 
 import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.exceptions.NotFound;
-import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
 import com.fiebtcc.barbersclub.barbersclub.model.BarberShop;
-import com.fiebtcc.barbersclub.barbersclub.repository.BarbeiroRepository;
 import com.fiebtcc.barbersclub.barbersclub.repository.BarberShopRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -73,7 +70,7 @@ public class BarbershopServiceImpl implements BarbeshopService{
                 throw new BadRequest(barberShop.getMensagemErro());
             }
             BarberShop barberShopBD = barberShopRepository.findById(id).get();
-            barberShopBD.setCodStatus(barberShop.isCodStatus());
+            barberShopBD.setCod_status(barberShop.isCod_status());
             return barberShopRepository.save(barberShopBD);
         }catch (Exception ex){
             throw new NotFound("Barbearia com o id " + id + " não encontrado");

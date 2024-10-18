@@ -16,7 +16,7 @@ public class Agenda {
     @Column(length = 25)
     private String tipo_servico;
     @Column(nullable = false)
-    private boolean codStatus;
+    private boolean cod_status;
 
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
@@ -50,12 +50,12 @@ public class Agenda {
         this.tipo_servico = tipo_servico;
     }
 
-    public boolean isCodStatus() {
-        return codStatus;
+    public boolean isCod_status() {
+        return cod_status;
     }
 
-    public void setCodStatus(boolean codStatus) {
-        this.codStatus = codStatus;
+    public void setCod_status(boolean cod_status) {
+        this.cod_status = cod_status;
     }
     public String getMensagemErro() {
         return mensagemErro;

@@ -3,8 +3,6 @@ package com.fiebtcc.barbersclub.barbersclub.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.text.DecimalFormat;
-
 @Entity
 @Table(name="Avaliacao")
 public class Avaliacao {
@@ -16,7 +14,7 @@ public class Avaliacao {
     @Column(nullable = true, columnDefinition = "INTEGER")
     private Long quantiA;
     @Column(nullable = false)
-    private boolean codStatus;
+    private boolean cod_status;
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
     private String mensagemErro = "";
@@ -49,12 +47,12 @@ public class Avaliacao {
         this.quantiA = quantiA;
     }
 
-    public boolean isCodStatus() {
-        return codStatus;
+    public boolean isCod_status() {
+        return cod_status;
     }
 
-    public void setCodStatus(boolean codStatus) {
-        this.codStatus = codStatus;
+    public void setCod_status(boolean cod_status) {
+        this.cod_status = cod_status;
     }
     public String getMensagemErro() {
         return mensagemErro;

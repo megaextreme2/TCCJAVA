@@ -26,7 +26,7 @@ public class BarberShop {
     @Column(nullable = false, length = 2)
     private String uf;
     @Column(nullable = false)
-    private boolean codStatus;
+    private boolean cod_status;
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
     private String mensagemErro = "";
@@ -107,12 +107,12 @@ public class BarberShop {
         this.cep = cep;
     }
 
-    public boolean isCodStatus() {
-        return codStatus;
+    public boolean isCod_status() {
+        return cod_status;
     }
 
-    public void setCodStatus(boolean codStatus) {
-        this.codStatus = codStatus;
+    public void setCod_status(boolean codStatus) {
+        this.cod_status = codStatus;
     }
     public String getMensagemErro() {
         return mensagemErro;

@@ -29,7 +29,7 @@ public class TelefoneController {
     @PostMapping("/telefone")
     @Transactional
     public ResponseEntity<Telefone> salvarTelefone(@RequestBody Telefone telefone) {
-        telefone.setCodStatus(true);
+        telefone.setCod_status(true);
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/funcionario/telefone").toUriString());
         return ResponseEntity.created(uri).body(telefoneService.salvarTelefone(telefone));
     }

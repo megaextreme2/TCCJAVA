@@ -15,7 +15,7 @@ public class Barbeiro {
     @Column(nullable = false, length = 15)
     private String cpf;
     @Column(nullable = false)
-    private boolean codStatus;
+    private boolean cod_status;
 
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
@@ -29,9 +29,9 @@ public class Barbeiro {
         return id;
     }
 
-    public boolean isCodStatus() {
+    public boolean isCod_status() {
 
-        return codStatus;
+        return cod_status;
     }
 
     public byte[] getFoto() {
@@ -42,8 +42,8 @@ public class Barbeiro {
         this.foto = foto;
     }
 
-    public void setCodStatus(boolean codStatus) {
-        this.codStatus = codStatus;
+    public void setCod_status(boolean cod_status) {
+        this.cod_status = cod_status;
     }
 
     public void setId(Long id) {

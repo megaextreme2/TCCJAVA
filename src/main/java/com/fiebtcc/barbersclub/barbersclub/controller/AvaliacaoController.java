@@ -4,47 +4,44 @@ import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.model.Avaliacao;
 import com.fiebtcc.barbersclub.barbersclub.services.AvaliacaoService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/avaliacao")
+@CrossOrigin(origins="*", maxAge = 3600, allowCredentials = "false")
+@RequestMapping("/avaliacao")
 public class AvaliacaoController {
 
-    private final AvaliacaoService avaliacaoService;
+    // criação do objeto de serviço
+    final AvaliacaoService avaliacaoService;
 
+    // Injeção de Dependência
     public AvaliacaoController(AvaliacaoService avaliacaoService) {
         this.avaliacaoService = avaliacaoService;
     }
-    @GetMapping("/avaliacao")
+
+    // ROTA POST
+    @PostMapping
+    public ResponseEntity<Object> salvarAvalicao(@RequestBody Avaliacao avaliacao){
+        return ResponseEntity.status(HttpStatus.CREATED).body(avaliacaoService.salvarAvaliacao(avaliacao));
+    }
+
+    // ROTA GET
+    @GetMapping
     public ResponseEntity<List<Avaliacao>> listarTodasAvaliacaoAtivas(){
-        return ResponseEntity.ok().body(avaliacaoService.listarTodasAvaliacaoAtivas());
-    }
-    @PostMapping("/avaliacao")
-    @Transactional
-    public ResponseEntity<Avaliacao> salvarAvaliacao(@RequestBody Avaliacao avaliacao){
-        avaliacao.setCodStatus(true);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/funcionario/avaliacao").toUriString());
-        return ResponseEntity.created(uri).body(avaliacaoService.salvarAvaliacao(avaliacao));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(avaliacaoService.listarTodasAvaliacaoAtivas());
     }
 
-
-    @PutMapping("/avaliacao/{id}")
-    @Transactional
-    public ResponseEntity<Avaliacao> atualizarAvalicao(@RequestBody Avaliacao avaliacao, @PathVariable(value = "id") String id){
-
-        try{
-            return ResponseEntity.ok().body(avaliacaoService.atualizarAvalicao(avaliacao , Long.parseLong(id)));
-
-        }catch (NumberFormatException ex){
-            throw new BadRequest("'"+ id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
+    @PutMapping
+    public ResponseEntity<Object> atualizarAvalicao(@RequestBody Avaliacao avaliacao, @PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(avaliacaoService.atualizarAvalicao(avaliacao, Long.parseLong(id)));
     }
-    @PutMapping("/deletlogic/avaliacao/{id}")
+    @PutMapping("/delete")
     @Transactional
     public ResponseEntity<Avaliacao> deletarLogicAvaliacao(@RequestBody Avaliacao avaliacao, @PathVariable(value = "id") String id){
 

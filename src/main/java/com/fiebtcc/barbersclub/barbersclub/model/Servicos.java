@@ -18,7 +18,7 @@ public class Servicos {
     @Column(length = 200)
     private String descricao;
     @Column(nullable = false)
-    private boolean codStatus;
+    private boolean cod_status;
 
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
@@ -67,12 +67,12 @@ public class Servicos {
     }
 
 
-    public boolean isCodStatus() {
-        return false;
+    public boolean isCod_status() {
+        return cod_status;
     }
 
-    public void setCodStatus(boolean codStatus) {
-        this.codStatus = codStatus;
+    public void setCod_status(boolean cod_status) {
+        this.cod_status = cod_status;
     }
     public String getMensagemErro() {
         return mensagemErro;

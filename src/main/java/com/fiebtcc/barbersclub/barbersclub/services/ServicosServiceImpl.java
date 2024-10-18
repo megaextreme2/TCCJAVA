@@ -4,7 +4,6 @@ package com.fiebtcc.barbersclub.barbersclub.services;
 
 import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.exceptions.NotFound;
-import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
 import com.fiebtcc.barbersclub.barbersclub.model.Servicos;
 import com.fiebtcc.barbersclub.barbersclub.repository.ServicosRepository;
 import jakarta.transaction.Transactional;
@@ -78,7 +77,7 @@ public class ServicosServiceImpl implements ServicosService{
                 throw new BadRequest(servicos.getMensagemErro());
             }
             Servicos servicosBD = servicosRepository.findById(id).get();
-            servicosBD.setCodStatus(servicos.isCodStatus());
+            servicosBD.setCod_status(servicos.isCod_status());
             return servicosRepository.save(servicosBD);
         }catch (Exception ex){
             throw new NotFound("Serviços com o id " + id + " não encontrado");

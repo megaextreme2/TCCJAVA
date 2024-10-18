@@ -4,7 +4,6 @@ import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.exceptions.NotFound;
 import com.fiebtcc.barbersclub.barbersclub.model.Avaliacao;
 
-import com.fiebtcc.barbersclub.barbersclub.model.Barbeiro;
 import com.fiebtcc.barbersclub.barbersclub.repository.AvaliacaoRepository;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +46,7 @@ public class AvaliacaoServiceImpl  implements AvaliacaoService{
                 throw new BadRequest(avaliacao.getMensagemErro());
             }
             Avaliacao avaliacaoBD = avaliacaoRepository.findById(id).get();
-            avaliacaoBD.setCodStatus(avaliacao.isCodStatus());
+            avaliacaoBD.setCod_status(avaliacao.isCod_status());
             return avaliacaoRepository.save(avaliacaoBD);
         } catch (Exception ex) {
             throw new NotFound("Barbeiro com o id " + id + " não encontrado");

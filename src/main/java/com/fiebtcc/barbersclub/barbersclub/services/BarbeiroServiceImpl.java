@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class BarbeiroServiceImpl implements BarbeiroService{
+public class BarbeiroServiceImpl implements BarbeiroService {
 
     private final BarbeiroRepository barbeiroRepository;
 
@@ -74,7 +74,7 @@ public class BarbeiroServiceImpl implements BarbeiroService{
                 throw new BadRequest(barbeiro.getMensagemErro());
             }
             Barbeiro barbeiroBD = barbeiroRepository.findById(id).get();
-            barbeiroBD.setCodStatus(barbeiro.isCodStatus());
+            barbeiroBD.setCod_status(barbeiro.isCod_status());
             return barbeiroRepository.save(barbeiroBD);
         }catch (Exception ex){
             throw new NotFound("Barbeiro com o id " + id + " não encontrado");
