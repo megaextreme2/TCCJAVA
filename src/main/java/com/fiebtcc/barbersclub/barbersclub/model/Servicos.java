@@ -15,6 +15,8 @@ public class Servicos {
     private String nome;
     @Column
     private byte[] foto;
+    @Column(nullable = true, columnDefinition = "DECIMAL(5,2)")
+    private int preco;
     @Column(length = 200)
     private String descricao;
     @Column(nullable = false)
@@ -66,6 +68,13 @@ public class Servicos {
         this.descricao = descricao;
     }
 
+    public int getPreco() {
+        return preco;
+    }
+
+    public void setPreco(int preco) {
+        this.preco = preco;
+    }
 
     public boolean isCod_status() {
         return cod_status;

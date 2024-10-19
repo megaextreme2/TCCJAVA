@@ -22,7 +22,7 @@ public class Cliente {
     @Column(nullable = false, length = 20)
     private String senha;
     @Column
-    private Date data_nasciment;
+    private Date data_nascimento;
     @Column(nullable = false)
     private boolean cod_status;
 
@@ -66,12 +66,12 @@ public class Cliente {
         return email;
     }
 
-    public Date getData_nasciment() {
-        return data_nasciment;
+    public Date getData_nascimento() {
+        return data_nascimento;
     }
 
-    public void setData_nasciment(Date data_nasciment) {
-        this.data_nasciment = data_nasciment;
+    public void setData_nascimento(Date data_nascimento) {
+        this.data_nascimento = data_nascimento;
     }
 
     public void setEmail(String email) {

@@ -25,6 +25,8 @@ public class BarberShop {
     private String cidade;
     @Column(nullable = false, length = 2)
     private String uf;
+    @Column(length = 200)
+    private String descricao;
     @Column(nullable = false)
     private boolean cod_status;
     @Transient  //Atributos que não estão em uma coluna
@@ -105,6 +107,14 @@ public class BarberShop {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public boolean isCod_status() {
