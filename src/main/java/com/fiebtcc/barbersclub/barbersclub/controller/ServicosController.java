@@ -4,6 +4,7 @@ import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.model.Servicos;
 import com.fiebtcc.barbersclub.barbersclub.services.ServicosService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,74 +12,56 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/v1/funcionario")
+@CrossOrigin(origins="*", maxAge = 3600, allowCredentials = "false")
+@RequestMapping("/servicos")
 public class ServicosController {
 
-    private final ServicosService servicosService;
+    // criação do objeto de serviço
+    final ServicosService ServicosService ;
 
-    public ServicosController(ServicosService servicosService) {
-        this.servicosService = servicosService;
+    // Injeção de Dependência
+    public ServicosController(ServicosService ServicosService) {
+        this.ServicosService = ServicosService;
     }
 
-    @GetMapping("/servicos")
-    public ResponseEntity<List<Servicos>> listarTodosServicos() {
-        return ResponseEntity.ok().body(servicosService.listarTodosServicos());
+    // ROTA POST
+    @PostMapping
+    public ResponseEntity<Object> salvarServicos(@RequestBody Servicos servicos){
+        return ResponseEntity.status(HttpStatus.CREATED).body(ServicosService.salvarServicos(servicos));
     }
 
-    @PostMapping("/servicos")
+    // ROTA GET
+    @GetMapping
+    public ResponseEntity<List<Servicos>> listarTodosServicos(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ServicosService.listarTodosServicos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Servicos> listarServicosPorId(@PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.OK).body(ServicosService.listarServicosPorId(Long.parseLong(id)));
+    }
+
+    @PutMapping("/delete/{id}")
     @Transactional
-    public ResponseEntity<Servicos> salvarServicos(@RequestBody Servicos servicos) {
-        servicos.setCod_status(true);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/funcionario/servicos").toUriString());
-        return ResponseEntity.created(uri).body(servicosService.salvarServicos(servicos));
-    }
+    public ResponseEntity<Servicos> deletarLogicServicos(@RequestBody Servicos servicos, @PathVariable(value = "id") String id){
 
-    @GetMapping("/servicos/{id}")
-    public ResponseEntity<Servicos> listarServicosPorId(@PathVariable(value = "id") String id) {
         try {
-            return ResponseEntity.ok().body(servicosService.listarServicosPorId(Long.parseLong(id)));
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
+            return ResponseEntity.ok().body(ServicosService.deletarLogicServicos(servicos, Long.parseLong(id)));
+
+        }catch (NumberFormatException ex){
+            throw new BadRequest("'"+ id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
         }
     }
 
-    @DeleteMapping("/servicos/{id}")
-    public ResponseEntity<Object> deletarServicos(@PathVariable(value = "id") String id) {
-        try {
-            if (servicosService.deletarServicos(Long.parseLong(id))) {
-                return ResponseEntity.ok().body("Serviço com o id " + id + " excluida com sucesso");
-            }
-
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
-
-        return ResponseEntity.ok().body("Não foi possível a exclusão da serviço com o id" + id);
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarServicos(@RequestBody Servicos servicos, @PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ServicosService.atualizarServicos(servicos, Long.parseLong(id)));
     }
-
-    @PutMapping("/servicos/{id}")
-    @Transactional
-    public ResponseEntity<Servicos> atualizarServicos(@RequestBody Servicos servicos, @PathVariable(value = "id") String id) {
-
-        try {
-            return ResponseEntity.ok().body(servicosService.atualizarServicos(servicos, Long.parseLong(id)));
-
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
-    }
-
-    @PutMapping("/deletlogic/servicos/{id}")
-    @Transactional
-    public ResponseEntity<Servicos> deletarlogicServicos(@RequestBody Servicos servicos, @PathVariable(value = "id") String id) {
-
-        try {
-            return ResponseEntity.ok().body(servicosService.deletarLogicServicos(servicos, Long.parseLong(id)));
-
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarServicos(@PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ServicosService.deletarServicos(Long.parseLong(id)));
     }
 }

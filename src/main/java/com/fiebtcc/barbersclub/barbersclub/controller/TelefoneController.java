@@ -4,6 +4,7 @@ import com.fiebtcc.barbersclub.barbersclub.exceptions.BadRequest;
 import com.fiebtcc.barbersclub.barbersclub.model.Telefone;
 import com.fiebtcc.barbersclub.barbersclub.services.TelefoneService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,74 +12,56 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/v1/telefone")
+@CrossOrigin(origins="*", maxAge = 3600, allowCredentials = "false")
+@RequestMapping("/telefone")
 public class TelefoneController {
 
-    private final TelefoneService telefoneService;
+    // criação do objeto de serviço
+    final TelefoneService telefoneService ;
 
+    // Injeção de Dependência
     public TelefoneController(TelefoneService telefoneService) {
         this.telefoneService = telefoneService;
     }
 
-    @GetMapping("/telefone")
-    public ResponseEntity<List<Telefone>> listarTodosTelefones() {
-        return ResponseEntity.ok().body(telefoneService.listarTodosTelefones());
+    // ROTA POST
+    @PostMapping
+    public ResponseEntity<Object> salvarTelefone(@RequestBody Telefone telefone){
+        return ResponseEntity.status(HttpStatus.CREATED).body(telefoneService.salvarTelefone(telefone));
     }
 
-    @PostMapping("/telefone")
+    // ROTA GET
+    @GetMapping
+    public ResponseEntity<List<Telefone>> listarTodosTelefones(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(telefoneService.listarTodosTelefones());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Telefone> listarTelefonesPorId(@PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.OK).body(telefoneService.listarTelefonesPorId(Long.parseLong(id)));
+    }
+
+    @PutMapping("/delete/{id}")
     @Transactional
-    public ResponseEntity<Telefone> salvarTelefone(@RequestBody Telefone telefone) {
-        telefone.setCod_status(true);
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/funcionario/telefone").toUriString());
-        return ResponseEntity.created(uri).body(telefoneService.salvarTelefone(telefone));
-    }
+    public ResponseEntity<Telefone> deletarLogicTelefone(@RequestBody Telefone telefone, @PathVariable(value = "id") String id){
 
-    @GetMapping("/telefone/{id}")
-    public ResponseEntity<Telefone> listarTelefonesPorId(@PathVariable(value = "id") String id) {
         try {
-            return ResponseEntity.ok().body(telefoneService.listarTelefonesPorId(Long.parseLong(id)));
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
+            return ResponseEntity.ok().body(telefoneService.deletarLogicTelefone(telefone, Long.parseLong(id)));
+
+        }catch (NumberFormatException ex){
+            throw new BadRequest("'"+ id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
         }
     }
 
-    @DeleteMapping("/telefone/{id}")
-    public ResponseEntity<Object> deletarTelefones(@PathVariable(value = "id") String id) {
-        try {
-            if (telefoneService.deletarTelefones(Long.parseLong(id))) {
-                return ResponseEntity.ok().body("Telefone com o id " + id + " excluida com sucesso");
-            }
-
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
-
-        return ResponseEntity.ok().body("Não foi possível a exclusão do Telefone com o id" + id);
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarTelefones(@RequestBody Telefone telefone, @PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(telefoneService.atualizarTelefones(telefone, Long.parseLong(id)));
     }
-
-    @PutMapping("/telefone/{id}")
-    @Transactional
-    public ResponseEntity<Telefone> atualizarTelefones(@RequestBody Telefone telefone, @PathVariable(value = "id") String id) {
-
-        try {
-            return ResponseEntity.ok().body(telefoneService.atualizarTelefones(telefone, Long.parseLong(id)));
-
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
-    }
-
-    @PutMapping("/deletlogic/telefone/{id}")
-    @Transactional
-    public ResponseEntity<Telefone> deletarLogicTelefone(@RequestBody Telefone telefone, @PathVariable(value = "id") String id) {
-
-        try {
-            return ResponseEntity.ok().body(telefoneService.deletarLogicTelefone( telefone, Long.parseLong(id)));
-
-        } catch (NumberFormatException ex) {
-            throw new BadRequest("'" + id + "' Não é um número inteiro válido. Por favor, forneça um valor inteiro, como 10");
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarTelefones(@PathVariable(value = "id") String id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(telefoneService.deletarTelefones(Long.parseLong(id)));
     }
 }
