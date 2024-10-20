@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
 
@@ -21,70 +21,67 @@ public class AdminServiceImpl implements AdminService{
     @Override
     @Transactional
     public Admin salvarAdmin(Admin admin) {
-            if (!admin.validarAdmin()) {
-                throw new BadRequest(admin.getMensagemErro());
-            }
-            return adminRepository.save(admin);
-
+        if (!admin.validarAdmin()) {
+            throw new BadRequest(admin.getMensagemErro());
+        }
+        admin.setCod_status(true); // Define cod_status como true ao salvar
+        return adminRepository.save(admin);
     }
 
     @Override
     public List<Admin> listarTodasAdmin() {
-
         return adminRepository.findAll();
     }
 
     @Override
     public Admin listarAdminPorId(Long id) {
-        try {
-            return adminRepository.findById(id).get();
-        } catch (Exception ex) {
-            throw new NotFound("Admin com o id " + id + " não encontrado");
+        return adminRepository.findById(id).orElseThrow(() ->
+                new NotFound("Admin com o id " + id + " não encontrado"));
+    }
+
+    @Override
+    public Admin login(String email, String senha) {
+        Admin admin = adminRepository.findByEmail(email); // Busca o administrador pelo email
+        if (admin != null && admin.getSenha().equals(senha)) {
+            if (Boolean.TRUE.equals(admin.isCod_status())) { // Verifica se cod_status é true
+                return admin; // Retorna o administrador se as credenciais estiverem corretas
+            }
         }
+        return null; // Retorna null se as credenciais estiverem incorretas ou cod_status não for true
     }
 
     @Override
     public boolean deletarAdmin(Long id) {
-
         if (adminRepository.existsById(id)) {
             adminRepository.deleteById(id);
+            return true;
         } else {
             throw new NotFound("Admin com o id " + id + " não encontrado");
         }
-        return true;
     }
 
     @Override
     public Admin atualizarAdmin(Admin admin, Long id) {
-
-        try {
-            if (!admin.validarAdmin()) {
-                throw new BadRequest(admin.getMensagemErro());
-            }
-            Admin adminBd = adminRepository.findById(id).get();
-            adminBd.setNome(admin.getNome());
-            adminBd.setSenha(admin.getSenha());
-            adminBd.setRelatorio(admin.getRelatorio());
-            return adminRepository.save(adminBd); // save: dupla função - update para objeto existente (quando não tenho objeto, ele salva, e quando tem, ele atualiza)
-
-        } catch (Exception ex) {
-            throw new NotFound("Admin com o id " + id + " não encontrado");
+        if (!admin.validarAdmin()) {
+            throw new BadRequest(admin.getMensagemErro());
         }
+
+        Admin adminBd = listarAdminPorId(id); // Usa o método para buscar por ID
+        adminBd.setNome(admin.getNome());
+        adminBd.setSenha(admin.getSenha());
+        adminBd.setRelatorio(admin.getRelatorio());
+        return adminRepository.save(adminBd);
     }
 
-
     @Override
-    public Admin deletarLogicAdmin(Admin admin, Long id){
-        try {
-            if (!admin.validarAdmin()){
-                throw new BadRequest(admin.getMensagemErro());
-            }
-            Admin adminBD = adminRepository.findById(id).get();
-            adminBD.setCod_status(admin.isCod_status());
-            return adminRepository.save(adminBD);
-        }catch (Exception ex){
-            throw new NotFound("Admin com o id " + id + " não encontrado");
+    public Admin deletarLogicAdmin(Admin admin, Long id) {
+        if (!admin.validarAdmin()) {
+            throw new BadRequest(admin.getMensagemErro());
         }
+
+        Admin adminBD = listarAdminPorId(id); // Usa o método para buscar por ID
+        adminBD.setCod_status(false); // Define como false para deletar logicamente
+        return adminRepository.save(adminBD);
     }
 
     @Override
@@ -92,11 +89,10 @@ public class AdminServiceImpl implements AdminService{
         return adminRepository.listarTodosAdminsAtivos();
     }
 
-
     @Override
     public Admin listarAdminsPorIdAtivos(Long id) {
         Admin admin = adminRepository.listarAdminsPorIdAtivas(id);
-        if(admin == null){
+        if (admin == null) {
             throw new NotFound("Admin com o id " + id + " não encontrado");
         }
         return admin;

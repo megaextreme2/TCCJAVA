@@ -12,6 +12,7 @@ public interface AdminService {
     public boolean deletarAdmin(Long id);
     public Admin atualizarAdmin(Admin admin, Long id);
     public Admin deletarLogicAdmin(Admin admin, Long id);
+    public Admin login(String email, String senha);
     public Admin listarAdminsPorIdAtivos(Long id);
     public List<Admin> listarTodosAdminsAtivos();
 }

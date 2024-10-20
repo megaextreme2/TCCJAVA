@@ -19,6 +19,7 @@ public class AvaliacaoServiceImpl  implements AvaliacaoService{
     @Override
     public Avaliacao salvarAvaliacao(Avaliacao avaliacao) {
         if (!avaliacao.validarAvaliacao()) {
+            avaliacao.setCod_status(true);
             throw new BadRequest(avaliacao.getMensagemErro());
         }
         return avaliacaoRepository.save(avaliacao);
@@ -31,6 +32,7 @@ public class AvaliacaoServiceImpl  implements AvaliacaoService{
                 Avaliacao avaliacaoBD = avaliacaoRepository.findById(id).get();
                 avaliacaoBD.setMedia(avaliacao.getMedia());
                 avaliacaoBD.setQuantiA(avaliacao.getQuantiA());
+                avaliacaoBD.setCod_status(true);
                 return avaliacaoRepository.save(avaliacaoBD);
             } else {
                 throw new BadRequest(avaliacao.getMensagemErro());

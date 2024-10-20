@@ -28,7 +28,7 @@ public class BarberShop {
     @Column(length = 200)
     private String descricao;
     @Column(nullable = false)
-    private boolean cod_status;
+    private boolean cod_status =  true;
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
     private String mensagemErro = "";

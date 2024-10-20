@@ -18,6 +18,7 @@ public class BarbershopServiceImpl implements BarbeshopService{
     @Override
     public BarberShop salvarBarberShop(BarberShop barberShop) {
         if (!barberShop.validarBarberShop()) {
+            barberShop.setCod_status(true);
             throw new BadRequest(barberShop.getMensagemErro());
         }
         return barberShopRepository.save(barberShop);
@@ -54,6 +55,7 @@ public class BarbershopServiceImpl implements BarbeshopService{
                 BarberShop barberShopBD = barberShopRepository.findById(id).get();
                 barberShopBD.setNome(barberShop.getNome());
                 barberShopBD.setQtd_barbeiro(barberShop.getQtd_barbeiro());
+                barberShopBD.setCod_status(true);
                 return barberShopRepository.save(barberShopBD);
             } else {
                 throw new BadRequest(barberShop.getMensagemErro());

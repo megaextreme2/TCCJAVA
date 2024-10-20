@@ -24,6 +24,7 @@ public class ServicosServiceImpl implements ServicosService{
     @Transactional
     public Servicos salvarServicos(Servicos servicos) {
         if (!servicos.validarServicos()) {
+            servicos.setCod_status(true);
             throw new BadRequest(servicos.getMensagemErro());
         }
         return servicosRepository.save(servicos);
@@ -61,6 +62,7 @@ public class ServicosServiceImpl implements ServicosService{
                 servicosBD.setTipo(servicos.getTipo());
                 servicosBD.setDescricao(servicos.getDescricao());
                 servicosBD.setNome(servicos.getNome());
+                servicosBD.setCod_status(true);
                 return servicosRepository.save(servicosBD);
             } else {
                 throw new BadRequest(servicos.getMensagemErro());

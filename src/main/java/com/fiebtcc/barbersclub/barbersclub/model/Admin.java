@@ -20,7 +20,7 @@ public class Admin {
     @Column(nullable = true, length = 2000)
     private String relatorio;
     @Column(nullable = false)
-    private boolean cod_status;
+    private boolean cod_status = true;
 
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore

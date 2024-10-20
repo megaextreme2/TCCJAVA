@@ -23,6 +23,7 @@ public class ClienteServiceImpl implements ClienteService{
     @Override
     public Cliente salvarClientes(Cliente cliente) {
         if (!cliente.validarCliente()) {
+            cliente.setCod_status(true);
             throw new BadRequest(cliente.getMensagemErro());
         }
         return clienteRepository.save(cliente);
@@ -61,6 +62,7 @@ public class ClienteServiceImpl implements ClienteService{
             Cliente clienteBD = clienteRepository.findById(id).get();
             clienteBD.setNome(cliente.getNome());
             clienteBD.setSenha(cliente.getSenha());
+            clienteBD.setCod_status(true);
             return clienteRepository.save(clienteBD); // save: dupla função - update para objeto existente (quando não tenho objeto, ele salva, e quando tem, ele atualiza)
 
         } catch (Exception ex) {

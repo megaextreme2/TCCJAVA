@@ -27,6 +27,7 @@ public class TelefoneServiceImpl implements TelefoneService{
     @Override
     public Telefone salvarTelefone(Telefone telefone) {
         if (!telefone.validarTelefone()) {
+            telefone.setCod_status(true);
             throw new BadRequest(telefone.getMensagemErro());
         }
         return telefoneRepository.save(telefone);
@@ -65,6 +66,7 @@ public class TelefoneServiceImpl implements TelefoneService{
             Telefone telefoneBd = telefoneRepository.findById(id).get();
             telefoneBd.setNumero(telefone.getNumero());
             telefoneBd.setDdd(telefone.getDdd());
+            telefoneBd.setCod_status(true);
             return telefoneRepository.save(telefoneBd); // save: dupla função - update para objeto existente (quando não tenho objeto, ele salva, e quando tem, ele atualiza)
 
         } catch (Exception ex) {

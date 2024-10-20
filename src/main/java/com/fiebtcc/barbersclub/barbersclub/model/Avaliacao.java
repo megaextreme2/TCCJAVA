@@ -14,7 +14,7 @@ public class Avaliacao {
     @Column(nullable = true, columnDefinition = "INTEGER")
     private Long quantiA;
     @Column(nullable = false)
-    private boolean cod_status;
+    private boolean cod_status =  true;
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
     private String mensagemErro = "";

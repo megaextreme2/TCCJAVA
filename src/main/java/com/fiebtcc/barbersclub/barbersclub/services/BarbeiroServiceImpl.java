@@ -23,6 +23,7 @@ public class BarbeiroServiceImpl implements BarbeiroService {
     @Transactional
     public Barbeiro salvarBarbeiro(Barbeiro barbeiro) {
         if (!barbeiro.validarBarbeiro()) {
+            barbeiro.setCod_status(true);
             throw new BadRequest(barbeiro.getMensagemErro());
         }
         return barbeiroRepository.save(barbeiro);
@@ -58,6 +59,7 @@ public class BarbeiroServiceImpl implements BarbeiroService {
             if (!barbeiro.validarBarbeiro()) {
                 Barbeiro barbeiroBD = barbeiroRepository.findById(id).get();
                 barbeiroBD.setNome(barbeiro.getNome());
+                barbeiroBD.setCod_status(true);
                 return barbeiroRepository.save(barbeiroBD);
             } else {
                 throw new BadRequest(barbeiro.getMensagemErro());

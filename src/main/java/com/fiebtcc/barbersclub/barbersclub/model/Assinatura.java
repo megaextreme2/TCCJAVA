@@ -22,7 +22,7 @@ public class Assinatura {
     @Column(nullable = true, columnDefinition = "DECIMAL(5,2)")
     private double preco;
     @Column(nullable = false)
-    private boolean cod_status;
+    private boolean cod_status =  true;
 
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore

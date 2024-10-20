@@ -14,7 +14,7 @@ public class Telefone {
     @Column(nullable = true, columnDefinition = "INTEGER")
     private Long ddd;
     @Column(nullable = false)
-    private boolean cod_status;
+    private boolean cod_status =  true;
 
     @Transient  //Atributos que não estão em uma coluna
     @JsonIgnore
