@@ -13,6 +13,7 @@ public interface AdminService {
     public Admin atualizarAdmin(Admin admin, Long id);
     public Admin deletarLogicAdmin(Admin admin, Long id);
     public Admin login(String email, String senha);
+    public boolean redifinirSenha(String email, String novaSenha);
     public Admin listarAdminsPorIdAtivos(Long id);
     public List<Admin> listarTodosAdminsAtivos();
 }

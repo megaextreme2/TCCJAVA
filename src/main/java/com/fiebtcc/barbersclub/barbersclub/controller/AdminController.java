@@ -74,4 +74,14 @@ public class AdminController {
         adminService.deletarAdmin(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    // ROTA POST para redefinir a senha
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestParam String email, @RequestParam String novaSenha) {
+        boolean success = adminService.redifinirSenha(email, novaSenha);
+        if (success) {
+            return ResponseEntity.ok("Senha redefinida com sucesso.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email não encontrado.");
+        }
+    }
 }

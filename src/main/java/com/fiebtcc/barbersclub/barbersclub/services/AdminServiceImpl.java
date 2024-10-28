@@ -97,4 +97,15 @@ public class AdminServiceImpl implements AdminService {
         }
         return admin;
     }
+    public boolean redifinirSenha(String email, String novaSenha) {
+        Admin admin = adminRepository.findByEmail(email);
+
+        if (admin != null) {
+            admin.setSenha(novaSenha); // Atualiza a senha do administrador
+            adminRepository.save(admin); // Salva as alterações
+            return true; // Senha redefinida com sucesso
+        }
+
+        return false; // Email não encontrado
+    }
 }
